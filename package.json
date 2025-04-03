@@ -1,0 +1,19 @@
+{
+  "name": "toast-project",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "demo": "pnpm --filter @toast-project/demo",
+    "toast": "pnpm --filter @meganmagic/toast"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
+    "typescript": "^5.3.3"
+  }
+} 
