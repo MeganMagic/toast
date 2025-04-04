@@ -1,56 +1,52 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import styles from './toast.module.css';
+// import React, { createContext, useContext, useState, useCallback } from "react";
+// import { Toast } from "./components/Toast";
 
-interface ToastContextType {
-  showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
-}
+// interface ToastContextType {
+//   showToast: (message: string, type?: "success" | "error" | "info") => void;
+// }
 
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
+// const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
-interface ToastProps {
-  message: string;
-  type?: 'success' | 'error' | 'info';
-  onClose: () => void;
-}
+// export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
+//   children,
+// }) => {
+//   const [toasts, setToasts] = useState<
+//     Array<{ id: number; message: string; type: "success" | "error" | "info" }>
+//   >([]);
 
-const Toast: React.FC<ToastProps> = ({ message, type = 'info', onClose }) => {
-  return (
-    <div className={`${styles.toast} ${styles[type]}`}>
-      {message}
-    </div>
-  );
-};
+//   const showToast = useCallback(
+//     (message: string, type: "success" | "error" | "info" = "info") => {
+//       const id = Date.now();
+//       setToasts((prev) => [...prev, { id, message, type }]);
+//       setTimeout(() => {
+//         setToasts((prev) => prev.filter((toast) => toast.id !== id));
+//       }, 3000);
+//     },
+//     []
+//   );
 
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [toasts, setToasts] = useState<Array<{ id: number; message: string; type: 'success' | 'error' | 'info' }>>([]);
+//   return (
+//     <ToastContext.Provider value={{ showToast }}>
+//       {children}
+//       {toasts.map((toast) => (
+//         <Toast
+//           key={toast.id}
+//           id={toast.id}
+//           message={toast.message}
+//           type={toast.type}
+//         />
+//       ))}
+//     </ToastContext.Provider>
+//   );
+// };
 
-  const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info') => {
-    const id = Date.now();
-    setToasts(prev => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts(prev => prev.filter(toast => toast.id !== id));
-    }, 3000);
-  }, []);
+// export const useToast = () => {
+//   const context = useContext(ToastContext);
+//   if (!context) {
+//     throw new Error("useToast must be used within a ToastProvider");
+//   }
+//   return context;
+// };
+import "./index.css";
 
-  return (
-    <ToastContext.Provider value={{ showToast }}>
-      {children}
-      {toasts.map(toast => (
-        <Toast
-          key={toast.id}
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-        />
-      ))}
-    </ToastContext.Provider>
-  );
-};
-
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-}; 
+export { ToastProvider, useToast } from "./provider/ToastProvider";
